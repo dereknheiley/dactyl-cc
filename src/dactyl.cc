@@ -71,14 +71,14 @@ int main() {
     }
   }
 
-  d.key_5.extra_width_right = 2;
-  d.key_t.extra_width_right = 3;
-  d.key_g.extra_width_right = 3;
+  d.key_5.extra_width_right = 8;
+  d.key_t.extra_width_right = 8;
+  d.key_g.extra_width_right = 8;
 
   for (Key* key : d.grid.row(0)) {
     // top row
     if (key) {
-      key->extra_width_top = 2;
+      key->extra_width_top = 8;
     }
   }
   d.key_b.extra_width_bottom = 3;
@@ -219,9 +219,9 @@ int main() {
 
         {d.key_backspace.GetBottomLeft(), down},
 
-        {slash_bottom_right, down},
+        // {slash_bottom_right, down},
 
-        {d.key_tilde.GetBottomRight(), down},
+        // {d.key_tilde.GetBottomRight(), down},
         {d.key_tilde.GetBottomLeft(), down},
 
         {d.key_shift.GetBottomLeft(), down, 0, .75},
@@ -263,7 +263,7 @@ int main() {
       // Make sure the section extruded to the bottom is thick enough. With certain angles the
       // projection is very small if you just use the post connector from the transform. Compute
       // an explicit shape.
-      const glm::vec3 post_offset(0, 0, -4);
+      const glm::vec3 post_offset(0, 0, -6);
       const glm::vec3 p = point.transforms.Apply(post_offset);
       const glm::vec3 p2 = t.Apply(post_offset);
 
@@ -281,11 +281,16 @@ int main() {
       wall_slices.push_back(slice);
     }
 
+    int numColours = 9;
+    std::string colours[9] = { "magenta", "red", "orange", "yellow", "green", "blue", "purple", "brown", "black"};
+    int colourPick = 0;
     for (size_t i = 0; i < wall_slices.size(); ++i) {
       auto& slice = wall_slices[i];
       auto& next_slice = wall_slices[(i + 1) % wall_slices.size()];
       for (size_t j = 0; j < slice.size(); ++j) {
-        shapes.push_back(Hull(slice[j], next_slice[j]));
+        std::string thisColour = colours[colourPick];
+        colourPick = (colourPick + 1) % numColours;
+        shapes.push_back(Hull(slice[j], next_slice[j]).Color(thisColour));
         // Uncomment for testing. Much faster and easier to visualize.
         // shapes.push_back(slice[j]);
       }

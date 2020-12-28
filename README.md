@@ -1,5 +1,8 @@
-# Dactyl CC Keyboard
+# Sample modifications to Dactyl CC Keyboar
+Updated borders to be slightly larged to allow for easier soldering. Make front wall more flat to facilitate attaching wrist rest.
+![image](border_changes.png)
 
+# Dactyl CC Keyboard
 This keyboard and associated libraries take heavy inspiration from the
  [dactyl](https://github.com/adereth/dactyl-keyboard) and
 the [dactyl_manuform](https://github.com/abstracthat/dactyl-manuform) keyboards.
